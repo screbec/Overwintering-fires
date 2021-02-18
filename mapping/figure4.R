@@ -1,4 +1,4 @@
-# Figure S3: plot overwintering ignitions on maps of elevation i.e.
+# Figure 4: plot overwintering ignitions on maps of elevation i.e.
 
 ### load required packages
 library(tidyverse)
@@ -6,7 +6,6 @@ library(raster)
 library(sf)
 library(viridis)
 library(ggspatial)
-library(rmapshaper)
 
 
 # ignition shapefile of overwintering fires
@@ -47,7 +46,7 @@ plotimg = function(rasterimg, ignshape, regionshape, region, lakepath, cbminmax)
   
   # create background image with coordinates
   pcoords = ggplot() + theme_bw() +
-    theme(legend.position = "none", text=element_text(size=8)) +
+    theme(legend.position = "none", text = element_text(size = 8)) +
     geom_sf(data = shape_OV, col = 'mediumblue', fill = 'mediumblue') +
     geom_sf(data = clip, col = 'black', fill = 'NA') +
     scale_x_continuous(expand = c(0, 0)) +
@@ -58,10 +57,10 @@ plotimg = function(rasterimg, ignshape, regionshape, region, lakepath, cbminmax)
   
   # map raster
   pmap = ggplot() + theme_void() +
-    theme(legend.position = "none", plot.margin=unit(c(0.5,0.5,0.5,0.5), "pt")) +
+    theme(legend.position = "none", plot.margin = unit(c(0.5,0.5,0.5,0.5), "pt")) +
     geom_raster(data = rasterimg, aes(x = x, y = y, fill = val))
   # for NT map add the lakes as orientation
-  if (region == 'NT'){
+  if (region == 'NT') {
     lakes = st_read(lakepath) %>% 
       filter(name_en %in% c('Great Bear Lake', 'Great Slave Lake')) %>% 
       st_transform(crs(shape_OV))
@@ -73,7 +72,7 @@ plotimg = function(rasterimg, ignshape, regionshape, region, lakepath, cbminmax)
     geom_sf(data = clip, col = 'white', fill = 'NA') +
     geom_sf(data = shape_OV, aes(size = ign), fill = 'steelblue1', col = 'black', shape = 21) +
     scale_size_manual(values = c(3, 2)) +
-    scale_fill_viridis(option="B", na.value=NA, direction = -1, limits= cbminmax) +
+    scale_fill_viridis(option = "B", na.value = NA, direction = -1, limits = cbminmax) +
     scale_x_continuous(expand = c(0, 0)) +
     scale_y_continuous(expand = c(0, 0))
   print(pmap) # this can be exported as tiff
@@ -108,8 +107,8 @@ colbarmax = max(c(max(na.omit(demNT$val)), max(na.omit(demAK$val))))
 p_overview = ggplot() + theme_bw() + labs(x = '', y = '') +
   theme(text = element_text(size = 8)) + 
   geom_sf(data = AKCA_simple, fill = "ivory", show.legend = F, color = "gray75", lwd = 0.2) +
-  geom_sf(data = clip_AK), col = 'Firebrick', fill = NA) +
-  geom_sf(data = clip_NT), col = 'cornflowerblue', fill = NA) +
+  geom_sf(data = clip_AK, col = 'Firebrick', fill = NA) +
+  geom_sf(data = clip_NT, col = 'cornflowerblue', fill = NA) +
   coord_sf(crs = st_crs(102001), 
            xlim = c(-3200000, 3000000), ylim = c(1500000, 5000000))
 print(p_overview)
@@ -117,7 +116,7 @@ print(p_overview)
 # color bar only
 p_cb = ggplot() + theme_void() + labs(fill = 'Altitude (m)') +
   geom_raster(data = sample_n(demAK, 1000) , aes(x = x, y = y, fill = val)) +
-  scale_fill_viridis(option="B", na.value=NA, direction = -1, limits= c(colbarmin, colbarmax))
+  scale_fill_viridis(option = "B", na.value = NA, direction = -1, limits = c(colbarmin, colbarmax))
 print(p_cb)
 
 # plot maps

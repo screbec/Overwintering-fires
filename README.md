@@ -1,12 +1,12 @@
 # Overwintering fires algorithm & analyses
 Python and R code for the identification and analysis of overwintering fires
 
-This code uses ground truth and and satellite data to identify fires that have overwintered and subsequently analyse spatial and temporal drivers of overwintering. The results of this work are curently under review (Scholten et al., 2021). The datasets required for the code are listed in the data requirements. They are all freely available and linked in the data availability statement of Scholten et al. (2021). 
+This code uses ground truth and satellite data to identify fires that have overwintered and subsequently analyse spatial and temporal drivers of overwintering. The results of this work are currently under review (Scholten et al., 2021). The datasets required for the code are listed in the data requirements. They are all freely available and linked in the data availability statement of Scholten et al. (2021). 
   
-The scripts include the preprocessing steps (P) and the analyses (A) as shown in the workflow below. The source code for all display items in the article (Figures 1-4 and Table 1) is also included. All preprocessing was done in python, whereas analyses and plots were coded in R. For easier readibility functions used in each script are pasted directly in the corresponding script. Lastly, please note that this code was not written by a professional software developer, so it may not be written in the most beautiful and effective way possible. If you have any comments or suggestions regarding the code, please share them with us. Also feel free to contact us if you have any questions about the code, data or the analysis in general.
+The scripts include the preprocessing steps (P) and the analyses (A) as shown in the workflow below. The source code for all display items in the article (Figures 1-4 and Table 1) is also included. All preprocessing was done in python, whereas analyses and plots were coded in R. For easier readability functions used in each script are pasted directly in the corresponding script. Lastly, please note that this code was not written by a professional software developer, so it may not be written in the most beautiful and effective way possible. If you have any comments or suggestions regarding the code, please share them with us. Also feel free to contact us if you have any questions about the code, data or the analysis in general.
 
 ### Workflow: 
-(A marks the actual analysis script, P marks preprocessing steps that generate the data needed for A)
+(A marks the actual analyses and plotting scripts, P marks preprocessing steps that generate the data needed for A)
 #### 1. Algorithm for identifying overwintering fires:
 - P Compute first snowfree day from modscag data (pre_algorithm/modscag_ldos.py) 
 - P Find nearest antecedent fire scar for each ignition point and calculate distance (pre_algorithm/nndist.py)

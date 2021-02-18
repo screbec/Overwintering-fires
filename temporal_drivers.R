@@ -6,6 +6,7 @@
 library(tidyverse)
 library(egg) #ggplot layouts (tag_facet)
 
+
 ### Load data ------------------------------------------------------------------
 # output from overwintering algorithm
 data = read_csv('overwintering_out.csv')
@@ -15,7 +16,7 @@ area_yr_reg = data %>% select(Year, ShortNm, FireID, area) %>% distinct() %>%
   group_by(Year, ShortNm) %>% summarise(area = sum(area, na.rm = TRUE))
 
 # mjjas maximum temperature
-temp = read.csv('temp_max_extremes.csv',)
+temp = read.csv('temp_max_extremes.csv')
 
 # regional average of burn depth (used in scatter plots)
 depth_reg = read_csv('spatial.csv') %>% 
@@ -60,18 +61,18 @@ p = ggplot(ignyr) + theme_classic() + facet_wrap(~ShortNm) +
         axis.text.y.right = element_text(color = "Firebrick"), axis.title.y.right = element_text(color = "Firebrick"), 
         axis.line.y.left = element_line(color = "gray40"), axis.ticks.y.left = element_line(color = "gray40"),
         axis.text.y.left = element_text(color = "gray40"), axis.title.y.left = element_text(color = "gray40"),
-        text=element_text(size=7),
+        text = element_text(size = 7),
         aspect.ratio = 4/6) 
 tag_facet(p, open = '', close = '', tag_pool = c('c','d'))
 
 ## part2: time series MJJAS temperature
 p = ggplot(filter(ignyr, param == 'mean')) + theme_classic() + facet_wrap(~ShortNm) +
   geom_line(aes(Year, temp_perc), col = 'tomato') +
-  labs(x='', y = 'MJJAS Temperature (K)') + ylim(c(286, 291)) + xlim(c(2001, 2017)) +
+  labs(x = '', y = 'MJJAS Temperature (K)') + ylim(c(286, 291)) + xlim(c(2001, 2017)) +
   theme(axis.line.y.left = element_line(color = "tomato"), axis.ticks.y.left = element_line(color = "tomato"),
         axis.text.y.left = element_text(color = "tomato"), axis.title.y.left = element_text(color = "tomato"),
         axis.line.x = element_blank(), axis.ticks.x = element_blank(), axis.text.x = element_blank(),
-        text=element_text(size=7),
+        text = element_text(size = 7),
         aspect.ratio = 4/6)
 tag_facet(p, open = '', close = '', tag_pool = c('',''))
 
@@ -79,9 +80,9 @@ tag_facet(p, open = '', close = '', tag_pool = c('',''))
 # ggplot has no default for plotting a second y-axis
 # MJJAS temperature values thus have to be scaled to range of burned area values (temp_scale)
 # and the axis scaled back to temperature values
-ba_temp2 = ba_temp %>% filter(is.na(param)| param == 'mean', Year < 2020) %>%
+ba_temp2 = ba_temp %>% filter(is.na(param) | param == 'mean', Year < 2020) %>%
   mutate(ba = ba/10000)  # convert from km2 to Mha
-ba_temp2 = mutate(ba_temp2, temp_scale = (temp_perc-min(ba_temp2$temp_perc, na.rm = T))/
+ba_temp2 = mutate(ba_temp2, temp_scale = (temp_perc - min(ba_temp2$temp_perc, na.rm = T)) /
                     (max(ba_temp2$temp_perc, na.rm = T) - min(ba_temp2$temp_perc, na.rm = T)) * max(ba_temp2$ba, na.rm = T))
 
 # create annotation dataframe with slopa and p-values of trends
@@ -89,6 +90,7 @@ lm_t_AK = lm(temp_perc ~ Year, data = filter(ba_temp2, ShortNm == 'AK'))
 lm_t_NT = lm(temp_perc ~ Year, data = filter(ba_temp2, ShortNm == 'NT'))
 lm_ba_AK = lm(ba ~ Year, data = filter(ba_temp2, ShortNm == 'AK'))
 # there is no burned area trend in Northwest Territories
+
 tablestats = data.frame(slope = c(paste('+', round(summary(lm_ba_AK)$coefficients[2,1],4)*10000, '~km^2/yr'), ''),
                         p_reg = c(paste('p =', round(summary(lm_ba_AK)$coefficients[2,4],2)), ''), 
                         slopet = c(paste('+', round(summary(lm_t_AK)$coefficients[2,1],2), '~K/yr'), 
@@ -126,9 +128,9 @@ p = ggplot(ba_temp2) + theme_classic() + facet_wrap(~ShortNm) + xlim(c(1975, 203
         axis.text.y.left = element_text(color = "gray40"), axis.title.y.left = element_text(color = "gray40"), 
         axis.line.y.right = element_line(color = "tomato"), axis.ticks.y.right = element_line(color = "tomato"),
         axis.text.y.right = element_text(color = "tomato"), axis.title.y.right = element_text(color = "tomato"),
-        axis.text.x=element_text(color = c(rep('black', 5), 'transparent')),
+        axis.text.x = element_text(color = c(rep('black', 5), 'transparent')),
         axis.ticks.x = element_line(color = c(rep('black', 5), 'transparent')),
-        text=element_text(size=7),
+        text = element_text(size = 7),
         aspect.ratio = 4/6)
 tag_facet(p, open = '', close = '', tag_pool = c('a','b'))
 
@@ -166,11 +168,11 @@ scatter_cor = function(data, varX, varY, xanno, yanno, labx, laby, figure_tags, 
     geom_text(data = annos, aes(x = x_cor, y = y_cor, label = pcor), size = 2.5, hjust = 'left') +
     scale_color_manual(values = c('chartreuse4', 'chartreuse3'), guide = F) +
     labs(x = labx, y = laby) +
-    theme(text=element_text(size=7),
+    theme(text = element_text(size = 7),
           panel.grid.major = element_blank(),
           panel.grid.minor = element_blank(),
           aspect.ratio = 5/6)
-  if (!is.na(xlim)){
+  if (!is.na(xlim)) {
     p = p + xlim(xlim)
   }
   print(tag_facet(p, open = '', close = '', tag_pool = figure_tags))

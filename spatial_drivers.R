@@ -42,7 +42,7 @@ burnDepth = spat_vars_mean %>% filter(sp_ws + sp_dc + sp_p < 0.9) %>%
 
 ## part 1: t-tests for burn depth
 # Welch's t-test
-for (state in c('AK', 'NT')){
+for (state in c('AK', 'NT')) {
   x = filter(burnDepth, ShortNm == state, ign2 == 'overwinter') %>% select(burn_depth) %>% unlist()
   y = filter(burnDepth, ShortNm == state, ign2 == 'other') %>% select(burn_depth) %>% unlist()
   t = t.test(x, y, alternative = "two.sided")
@@ -54,10 +54,10 @@ for (state in c('AK', 'NT')){
 # reshape to long format so we can loop through all variables
 test = spat_vars_mean %>% select(-FireID, -depth_mean) %>% gather(key = "variable", value = "value", -one_of('ign2', 'ShortNm'))
 # compute t-tests and output means, standard deviations and t-test p-value in a table
-for (state in c('NT', 'AK')){
+for (state in c('NT', 'AK')) {
   res = NULL
   dattest = filter(test, ShortNm == state)
-  for (var in unique(test$variable)){
+  for (var in unique(test$variable)) {
     x = filter(dattest, ign2 == 'overwinter', variable == var) %>% select(value) %>% unlist()
     y = filter(dattest, ign2 == 'other', variable == var) %>% select(value) %>% unlist()
     ttest = t.test(x, y, alternative = 'two.sided')
@@ -88,7 +88,7 @@ p = ggplot(burnDepth) + theme_bw() + facet_wrap(~ShortNm, ncol = 2) +
   scale_fill_manual(values = c('steelblue1', 'firebrick'), guide = FALSE) +
   scale_color_manual(values = c('steelblue1','firebrick'), guide = FALSE) +
   labs(y = 'Burn depth (cm)', x = "") + ylim(c(-30,-7)) + 
-  theme(text=element_text(size=8),
+  theme(text = element_text(size = 8),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         aspect.ratio = 5/6)
