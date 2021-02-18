@@ -1,4 +1,9 @@
 # Overwintering fires algorithm & analyses
+
+
+<a href="https://zenodo.org/badge/latestdoi/339752933"><img src="https://zenodo.org/badge/339752933.svg" alt="DOI"></a>
+
+
 Python and R code for the identification and analysis of overwintering fires
 
 This code uses ground truth and satellite data to identify fires that have overwintered and subsequently analyse spatial and temporal drivers of overwintering. The results of this work are currently under review (Scholten et al., 2021). The datasets required for the code are listed in the data requirements. They are all freely available and linked in the data availability statement of Scholten et al. (2021). 
