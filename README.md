@@ -6,7 +6,7 @@
 
 Python and R code for the identification and analysis of overwintering fires
 
-This code uses ground truth and satellite data to identify fires that have overwintered and subsequently analyse spatial and temporal drivers of overwintering. The results of this work are currently under review (Scholten et al., 2021). The datasets required for the code are listed in the data requirements. They are all freely available and linked in the data availability statement of Scholten et al. (2021). 
+This code uses ground truth and satellite data to identify fires that have overwintered and subsequently analyse spatial and temporal drivers of overwintering. The results of this work are published in <a href="https://www.nature.com/articles/s41586-021-03437-y">Scholten et al. (2021)</a>. The datasets required for the code are listed in the data requirements. They are all freely available and linked in the data availability statement of Scholten et al. (2021). 
   
 The scripts include the preprocessing steps (P) and the analyses (A) as shown in the workflow below. The source code for all display items in the article (Figures 1-4 and Table 1) is also included. All preprocessing was done in python, whereas analyses and plots were coded in R. For easier readability functions used in each script are pasted directly in the corresponding script. Lastly, please note that this code was not written by a professional software developer, so it may not be written in the most beautiful and effective way possible. If you have any comments or suggestions regarding the code, please share them with us. Also feel free to contact us if you have any questions about the code, data or the analysis in general.
 
@@ -31,7 +31,7 @@ The scripts include the preprocessing steps (P) and the analyses (A) as shown in
 - code for Figure 4 (mapping/figure4.R)
 
 ### Data requirements:
-- ignitions (shapefile), i.e. from AKFED v3
+- ignitions (shapefile), i.e. from <a href="https://doi.org/10.3334/ORNLDAAC/1812">AKFED v3</a>
 - fire perimeters (shapefile), i.e. from Alaska Wildfire Maps and Canada National Fire Databases
 - MODSCAG snow fraction data (tiffs)
 - infrastructure data & 5 km buffer (shapefiles)
